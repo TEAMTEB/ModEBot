@@ -15,8 +15,11 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print("------------------------")
+    print("준비 완료!")
+    game = discord.Game("admin.help | MEB 1.1")
+    await bot.change_presence(status=discord.Status.online, activity=game)
 
-@bot.command(name="msg")
+@bot.command(name="msg" help="당신이 한 말을 따라합니다." usage="admin.msg [말]")
 async def Echo(ctx, *, text: str):
     await ctx.send(text)
 
