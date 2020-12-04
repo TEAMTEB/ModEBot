@@ -15,7 +15,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print("------------------------")
-    game = discord.Game("admin.help | MEB 1.4.3 | 팀 텝 공식 포럼 전용 봇! | 프로필 오류 해결!")
+    game = discord.Game(".help | MEB 1.4.4 | 팀 텝 공식 포럼 전용 봇! | 상태메시지 변경!")
     await bot.change_presence(status=discord.Status.online, activity=game)
 
 @commands.has_permissions(administrator=True)
