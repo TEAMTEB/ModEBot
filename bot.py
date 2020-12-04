@@ -6,7 +6,7 @@ import random
 import json
 import os
 
-bot = commands.Bot(command_prefix='admin.')
+bot = commands.Bot(command_prefix='.')
 client = discord.Client()
 
 @bot.event
