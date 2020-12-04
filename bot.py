@@ -5,9 +5,9 @@ from discord.ext.commands import Bot
 import random
 import json
 import os
+import datetime, ast
 
 bot = commands.Bot(command_prefix='.')
-client = discord.Client()
 
 @bot.event
 async def on_ready():
@@ -15,8 +15,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print("------------------------")
-    print("준비 완료!")
-    game = discord.Game("admin.help | MEB 1.4.1 | 팀 텝 공식 포럼 전용 봇! | 프로필 배지 업데이트!")
+    game = discord.Game("admin.help | MEB 1.4.3 | 팀 텝 공식 포럼 전용 봇! | 프로필 오류 해결!")
     await bot.change_presence(status=discord.Status.online, activity=game)
 
 @commands.has_permissions(administrator=True)
