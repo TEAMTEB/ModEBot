@@ -46,5 +46,38 @@ async def ping(message):
     if len(badge) == 0: embed.add_field(name="서버 전용 뱃지", value=f"> **뱃지가 없습니다.**", inline=False)
     else: embed.add_field(name="서버 전용 뱃지", value=f"> {' '.join(badge)}", inline=False)
     await message.channel.send(embed=embed)
+                          
+@bot.command(name='실행')
+async def eval_fn(ctx, *, cmd):
+    owner = [694017913723682946, 724862211251765250]
+    if ctx.author.id in owner:
+        msgembed = discord.Embed(title='실행', description='', color=RandomColor())
+        msgembed.add_field(name='**INPUT**', value=f'```py\n{cmd}```', inline=False)
+        msgembed.set_footer(text=f'{ctx.author}', icon_url=ctx.author.avatar_url)
+        try:
+            fn_name = "_eval_expr"
+            cmd = cmd.strip("` ")
+            cmd = "\n".join(f"    {i}" for i in cmd.splitlines())
+            body = f"async def {fn_name}():\n{cmd}"
+            parsed = ast.parse(body)
+            body = parsed.body[0].body
+            insert_returns(body)
+            env = {
+                'bot': bot,
+                'commands': commands,
+                'ctx': ctx,
+                '__import__': __import__
+                }
+            exec(compile(parsed, filename="<ast>", mode="exec"), env)
+
+            result = (await eval(f"{fn_name}()", env))
+        except Exception as a:
+            result = a
+        if result == '':
+            result = 'None'
+        msgembed.add_field(name="**OUTPUT**", value=f'```py\n{result}```', inline=False)    
+        await ctx.send(embed=msgembed)
+    else:
+        await ctx.send("당신의 말은 듣지 못하게 설정되어있어요 ㅜㅜ...")
 
 bot.run(os.environ['token'])
