@@ -15,7 +15,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print("------------------------")
-    game = discord.Game(".help | MEB 1.5 | 팀 텝 공식 포럼 전용 봇! | 상태메시지 변경!")
+    game = discord.Game(".help | MEB 1.5.1 | 팀 텝 공식 포럼 전용 봇! | 실행 명령어 추가!")
     await bot.change_presence(status=discord.Status.online, activity=game)
 
 @commands.has_permissions(administrator=True)
@@ -51,7 +51,7 @@ async def ping(message):
 async def eval_fn(ctx, *, cmd):
     owner = [694017913723682946, 724862211251765250]
     if ctx.author.id in owner:
-        msgembed = discord.Embed(title='실행', description='', color=RandomColor())
+        msgembed = discord.Embed(title='실행', description='실행이 완료되었어요!')
         msgembed.add_field(name='**INPUT**', value=f'```py\n{cmd}```', inline=False)
         msgembed.set_footer(text=f'{ctx.author}', icon_url=ctx.author.avatar_url)
         try:
