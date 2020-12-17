@@ -15,7 +15,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print("------------------------")
-    game = discord.Game(".help | MEB 1.5.1 | 팀 텝 공식 포럼 전용 봇! | 실행 명령어 추가!")
+    game = discord.Game(".help | MEB 1.5.2 | 팀 텝 공식 포럼 전용 봇! | 실행 오류 해결!")
     await bot.change_presence(status=discord.Status.online, activity=game)
 
 @commands.has_permissions(administrator=True)
@@ -46,7 +46,19 @@ async def ping(message):
     if len(badge) == 0: embed.add_field(name="서버 전용 뱃지", value=f"> **뱃지가 없습니다.**", inline=False)
     else: embed.add_field(name="서버 전용 뱃지", value=f"> {' '.join(badge)}", inline=False)
     await message.channel.send(embed=embed)
-                          
+                    
+def insert_returns(body):
+    if isinstance(body[-1], ast.Expr):
+        body[-1] = ast.Return(body[-1].value)
+        ast.fix_missing_locations(body[-1])
+
+    if isinstance(body[-1], ast.If):
+        insert_returns(body[-1].body)
+        insert_returns(body[-1].orelse)
+
+    if isinstance(body[-1], ast.With):
+        insert_returns(body[-1].body)                          
+
 @bot.command(name='실행')
 async def eval_fn(ctx, *, cmd):
     owner = [694017913723682946, 724862211251765250]
