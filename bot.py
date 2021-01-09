@@ -25,24 +25,28 @@ async def Echo(ctx, *, text: str):
 
 @bot.command(name="pf", help="프로필을 보여줍니다!", usage=".pf")
 async def ping(message):
-    embed = discord.Embed(color=0x7289DA, title=f"{message.author}님의 프로필")
-    embed.set_thumbnail(url=message.author.avatar_url)
+    try:
+        user = message.mentions[0]
+    except:
+        user = message.author
+    embed = discord.Embed(color=0x7289DA, title=f"{user} 프로필")
+    embed.set_thumbnail(url=user.avatar_url)
     embed.set_footer(text=message.author, icon_url=message.author.avatar_url)
-    embed.add_field(name="서버에 들어온 날!", value=f"{message.author.joined_at.year}년 {message.author.joined_at.month}월 {message.author.joined_at.day}일", inline=False)
+    embed.add_field(name="서버 접속일", value=f"{user.joined_at.year}년 {user.joined_at.month}월 {user.joined_at.day}일", inline=False)
     badge = []
-    if 778136754632654868 in map(lambda x: x.id, message.author.roles):
+    if 778136754632654868 in map(lambda x: x.id, user.roles):
         badge.append("<:TEBDEV:784037256242397184> 띵이봇 개발자")
-    if 776639293484957737 in map(lambda x: x.id, message.author.roles):
+    if 776639293484957737 in map(lambda x: x.id, user.roles):
         badge.append("<:forum:784229490233704489> 서버 관리자")
-    if 779140061740400661 in map(lambda x: x.id, message.author.roles):
+    if 779140061740400661 in map(lambda x: x.id, user.roles):
         badge.append("<:e_:784229490409996348> 웹사이트 관리자")
-    if 783964719455141928 in map(lambda x: x.id, message.author.roles):
+    if 783964719455141928 in map(lambda x: x.id, user.roles):
         badge.append("<:dsin:784229490418647050> 디자이너")
-    if 776639464415297576 in map(lambda x: x.id, message.author.roles):
+    if 776639464415297576 in map(lambda x: x.id, user.roles):
         badge.append("<:user:784039384416387072> 이용자")
-    if 776643196067250197 in map(lambda x: x.id, message.author.roles):
+    if 776643196067250197 in map(lambda x: x.id, user.roles):
         badge.append(":pushpin: 구독자")
-    if 797423897456541707 in map(lambda x: x.id, message.author.roles):
+    if 797423897456541707 in map(lambda x: x.id, user.roles):
         badge.append("<:boost:797427813959204864> 서버 부스터!")
 
     if len(badge) == 0: embed.add_field(name="서버 전용 뱃지", value=f"> **뱃지가 없습니다.**", inline=False)
