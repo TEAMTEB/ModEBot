@@ -24,11 +24,9 @@ async def Echo(ctx, *, text: str):
     await ctx.send(text)
 
 @bot.command(name="pf", help="프로필을 보여줍니다!", usage=".pf")
-async def ping(message):
-    try:
-        user = message.mentions[0]
-    except:
-        user = message.author
+async def ping(message, *, user: discord.User=None):
+    if user is None:
+        user=message.author
     embed = discord.Embed(color=0x7289DA, title=f"{user} 프로필")
     embed.set_thumbnail(url=user.avatar_url)
     embed.set_footer(text=message.author, icon_url=message.author.avatar_url)
