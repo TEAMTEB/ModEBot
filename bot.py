@@ -42,6 +42,8 @@ async def ping(message):
         badge.append("<:user:784039384416387072> 이용자")
     if 776643196067250197 in map(lambda x: x.id, message.author.roles):
         badge.append(":pushpin: 구독자")
+    if 797423897456541707 in map(lambda x: x.id, message.author.roles):
+        badge.append("<:boost:797427813959204864> 서버 부스터!")
 
     if len(badge) == 0: embed.add_field(name="서버 전용 뱃지", value=f"> **뱃지가 없습니다.**", inline=False)
     else: embed.add_field(name="서버 전용 뱃지", value=f"> {' '.join(badge)}", inline=False)
